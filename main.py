@@ -1,6 +1,6 @@
 import time
 
+from HospitalApp import HospitalApp
 
 if __name__ == '__main__':
-    a = input()
-    time.sleep(5)
+    HospitalApp().run()
