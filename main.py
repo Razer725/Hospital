@@ -1,6 +1,6 @@
 import time
 
-from HospitalApp import HospitalApp
+from hospital_app import HospitalApp
 
 if __name__ == '__main__':
     HospitalApp().run()
