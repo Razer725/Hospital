@@ -1,4 +1,4 @@
-class PatientIdError(Exception):
+class PatientIdTypeError(Exception):
     def __init__(self, msg="Ошибка. ID пациента должно быть числом (целым, положительным)", *args, **kwargs):
         super().__init__(msg, *args, **kwargs)
 
