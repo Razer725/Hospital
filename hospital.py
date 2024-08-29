@@ -22,13 +22,14 @@ class Hospital:
             patient_id = self.data_handler.read_patient_id()
             if self.db.can_status_up(patient_id):
                 self.db.status_up(patient_id)
+                new_status = self.db.get_status(patient_id)
+                self.data_handler.print_new_status(new_status)
             else:
                 if self.data_handler.confirm_discharge():
+                    self.db.discharge(patient_id)
                     self.data_handler.print_discharged()
                 else:
                     self.data_handler.print_not_discharged()
-            new_status = self.db.get_status(patient_id)
-            self.data_handler.print_new_status(new_status)
         except (PatientMissingError, PatientIdTypeError) as e:
             self.data_handler.print_error(e)
 
