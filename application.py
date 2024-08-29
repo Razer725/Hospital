@@ -1,16 +1,17 @@
 from commands import Commands
-from hospital import Hospital
+
 
 class Application:
-    def __init__(self):
-        self.hospital = Hospital()
+    def __init__(self, hospital, data_handler):
+        self.hospital = hospital
+        self.data_handler = data_handler
 
     def run(self):
         user_command = None
         while user_command not in Commands.STOP.value:
-            user_command = self.hospital.console_handler.read_user_command()
+            user_command = self.data_handler.read_user_command()
             self._execute(user_command)
-        print("Сеанс завершён.")
+        self.data_handler.print_end_session()
 
     def _execute(self, command):
         if command in Commands.GET_STATUS.value:
@@ -26,8 +27,4 @@ class Application:
         elif command in Commands.STOP.value:
             pass
         else:
-            print("Неизвестная команда! Попробуйте ещё раз")
-
-
-if __name__ == '__main__':
-    Application().run()
+            self.data_handler.print_unknown_command()

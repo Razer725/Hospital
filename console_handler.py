@@ -11,18 +11,37 @@ class ConsoleHandler:
             raise PatientIdTypeError
         return patient_id
 
-    def read_user_answer(self):
-        return input("Желаете этого клиента выписать? (да/нет): ")
+    def confirm_discharge(self):
+        user_answer = input("Желаете этого клиента выписать? (да/нет): ")
+        return user_answer in ("да", "yes")
 
     def print_status(self, patient_status):
         print(f"Статус пациента: \"{patient_status}\"")
 
     def print_new_status(self, patient_new_status):
-        print(f"Статус пациента: \"{patient_new_status}\"")
+        print(f"Новый статус пациента: \"{patient_new_status}\"")
 
-    def print_statistics(self, patients, patients_statuses):
+    def print_end_session(self):
+        print("Сеанс завершён.")
+
+    def print_unknown_command(self):
+        print("Неизвестная команда! Попробуйте ещё раз")
+
+    def print_discharged(self):
+        print("Пациент выписан из больницы")
+
+    def print_not_discharged(self):
+        print("Пациент остался в статусе \"Готов к выписке\"")
+
+    def print_status_down_denied(self):
+        print("Ошибка. Нельзя понизить самый низкий статус (наши пациенты не умирают)")
+
+    def print_patients_statistics(self, count, statuses):
         template = "    - в статусе \"{}\": {} чел."
-        patients_statistics = [template.format(status[0], status[1]) for status in patients_statuses]
-        print(f"В больнице на данный момент находится {len(patients)} чел., из них:",
+        patients_statistics = [template.format(status[0], status[1]) for status in statuses]
+        print(f"В больнице на данный момент находится {count} чел., из них:",
               *patients_statistics,
               sep="\n")
+
+    def print_error(self, e):
+        print(e)
