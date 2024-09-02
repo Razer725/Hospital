@@ -1,11 +1,11 @@
 from application import Application
-from console_handler import ConsoleHandler
+from hospital_commands import HospitalCommands
+from user_interaction import UserInteraction
 from hospital import Hospital
-from patient_db import PatientDB
 
 if __name__ == '__main__':
-    console_handler = ConsoleHandler()
-    db = PatientDB()
-    hospital = Hospital(db, console_handler)
-    application = Application(hospital, console_handler)
+    user_interaction = UserInteraction()
+    hospital = Hospital()
+    hospital_commands = HospitalCommands(hospital, user_interaction)
+    application = Application(hospital_commands, user_interaction)
     application.run()

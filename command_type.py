@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Commands(Enum):
+class CommandType(Enum):
     STOP = "stop", "стоп"
     GET_STATUS = "узнать статус пациента", "get status"
     STATUS_UP = "повысить статус пациента", "status up"
