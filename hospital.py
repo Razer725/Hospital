@@ -6,8 +6,10 @@ from exceptions import PatientMissingError, StatusUpError, StatusDownError
 class Hospital:
     STATUSES = {0: "Тяжело болен", 1: "Болен", 2: "Слегка болен", 3: "Готов к выписке"}
 
-    def __init__(self, patients=200, status=1):
-        self._patients = [status] * patients
+    def __init__(self, patients=None):
+        if patients is None:
+            patients = [1] * 200
+        self._patients = patients
 
     def _get_patient_index(self, patient_id):
         inner_id = int(patient_id) - 1
@@ -33,13 +35,13 @@ class Hospital:
 
     def status_up(self, patient_id):
         if not self.can_status_up(patient_id):
-            raise StatusUpError
+            raise StatusUpError("Нельзя повысить максимальный статус")
         inner_id = self._get_patient_index(patient_id)
         self._patients[inner_id] += 1
 
     def status_down(self, patient_id):
         if not self.can_status_down(patient_id):
-            raise StatusDownError
+            raise StatusDownError("Нельзя понизить минимальный статус")
         inner_id = self._get_patient_index(patient_id)
         self._patients[inner_id] -= 1
 
