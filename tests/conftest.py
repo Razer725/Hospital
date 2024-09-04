@@ -1,8 +1,9 @@
 import pytest
 
 from hospital import Hospital
+from user_interaction import UserInteraction
 
 
-# @pytest.fixture
-# def hospital(request):
-#     return Hospital(request.param)
+@pytest.fixture
+def user_interaction(request):
+    return UserInteraction()

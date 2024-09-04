@@ -1,6 +1,6 @@
 from exceptions import PatientIdTypeError
 
-
+# noinspection PyMethodMayBeStatic
 class UserInteraction:
     def request_user_command(self):
         return input("Введите команду: ")
