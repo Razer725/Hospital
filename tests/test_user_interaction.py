@@ -10,8 +10,11 @@ class TestUserInteraction:
     def test_request_patient_id(self, mock_input, user_interaction):
         assert user_interaction.request_patient_id() == "1"
 
-    @patch('builtins.input', side_effect=['0', '-1', 'два'])  # Спросить тут про параметризацию с моками и софт ассерты
+    @patch('builtins.input', side_effect=['0', '-1', 'два', '1.1'])  # Спросить тут про параметризацию с моками и софт ассерты
     def test_request_patient_id_when_id_invalid(self, mock_input, user_interaction):
+        with pytest.raises(PatientIdTypeError):
+            user_interaction.request_patient_id()
+
         with pytest.raises(PatientIdTypeError):
             user_interaction.request_patient_id()
 
