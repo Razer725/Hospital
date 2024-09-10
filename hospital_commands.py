@@ -12,7 +12,7 @@ class HospitalCommands:
             status = self.hospital.get_status(patient_id)
             self.user_interaction.send_status(status)
         except (PatientMissingError, PatientIdTypeError) as e:
-            self.user_interaction.send_message(e)
+            self.user_interaction.send_message(str(e))
 
     def status_up(self):
         try:
@@ -28,7 +28,7 @@ class HospitalCommands:
                 else:
                     self.user_interaction.send_status_not_changed()
         except (PatientMissingError, PatientIdTypeError) as e:
-            self.user_interaction.send_message(e)
+            self.user_interaction.send_message(str(e))
 
     def status_down(self):
         try:
@@ -40,7 +40,7 @@ class HospitalCommands:
             else:
                 self.user_interaction.send_status_down_denied()
         except (PatientMissingError, PatientIdTypeError) as e:
-            self.user_interaction.send_message(e)
+            self.user_interaction.send_message(str(e))
 
     def discharge(self):
         try:
@@ -48,7 +48,7 @@ class HospitalCommands:
             self.hospital.discharge(patient_id)
             self.user_interaction.send_discharged()
         except (PatientMissingError, PatientIdTypeError) as e:
-            self.user_interaction.send_message(e)
+            self.user_interaction.send_message(str(e))
 
     def calculate_statistics(self):
         patients_statuses = self.hospital.get_patients_statuses()
