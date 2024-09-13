@@ -10,6 +10,7 @@ class TestHospitalCommands:
         user_interaction = MagicMock()
         user_interaction.request_patient_id = MagicMock(return_value=1)
         hospital_commands = HospitalCommands(Hospital([0, 2]), user_interaction)
+
         hospital_commands.get_status()
         user_interaction.send_status.assert_called_once_with('Тяжело болен')
 
@@ -17,6 +18,7 @@ class TestHospitalCommands:
         user_interaction = MagicMock()
         user_interaction.request_patient_id = MagicMock(side_effect=PatientIdTypeError)
         hospital_commands = HospitalCommands(Hospital([0, 2]), user_interaction)
+
         hospital_commands.get_status()
         user_interaction.send_message.assert_called_once_with(
             "Ошибка. ID пациента должно быть числом (целым, положительным)")
@@ -25,6 +27,7 @@ class TestHospitalCommands:
         user_interaction = MagicMock()
         user_interaction.request_patient_id = MagicMock(return_value=10)
         hospital_commands = HospitalCommands(Hospital([0, 1, 2]), user_interaction)
+
         hospital_commands.get_status()
         user_interaction.send_message.assert_called_once_with("Ошибка. В больнице нет пациента с таким ID")
 
@@ -33,6 +36,7 @@ class TestHospitalCommands:
         hospital = Hospital([1, 1, 2])
         user_interaction.request_patient_id = MagicMock(return_value=1)
         hospital_commands = HospitalCommands(hospital, user_interaction)
+
         hospital_commands.status_up()
         assert hospital._patients == [2, 1, 2]
         user_interaction.send_new_status.assert_called_once_with("Слегка болен")
@@ -43,6 +47,7 @@ class TestHospitalCommands:
         user_interaction.request_patient_id = MagicMock(return_value=1)
         user_interaction.request_discharge_confirmation = MagicMock(return_value=True)
         hospital_commands = HospitalCommands(hospital, user_interaction)
+
         hospital_commands.status_up()
         assert hospital._patients == [None, 1, 2]
         user_interaction.send_discharged.assert_called_once()
@@ -53,6 +58,7 @@ class TestHospitalCommands:
         user_interaction.request_patient_id = MagicMock(return_value=1)
         user_interaction.request_discharge_confirmation = MagicMock(return_value=False)
         hospital_commands = HospitalCommands(hospital, user_interaction)
+
         hospital_commands.status_up()
         assert hospital._patients == [3, 1, 2]
         user_interaction.send_status_not_changed.assert_called_once()
@@ -62,6 +68,7 @@ class TestHospitalCommands:
         hospital = Hospital([0, 2])
         user_interaction.request_patient_id = MagicMock(side_effect=PatientIdTypeError)
         hospital_commands = HospitalCommands(hospital, user_interaction)
+
         hospital_commands.status_up()
         assert hospital._patients == [0, 2]
         user_interaction.send_message.assert_called_once_with(
@@ -72,6 +79,7 @@ class TestHospitalCommands:
         hospital = Hospital([0, 2])
         user_interaction.request_patient_id = MagicMock(return_value=10)
         hospital_commands = HospitalCommands(hospital, user_interaction)
+
         hospital_commands.status_up()
         assert hospital._patients == [0, 2]
         user_interaction.send_message.assert_called_once_with("Ошибка. В больнице нет пациента с таким ID")

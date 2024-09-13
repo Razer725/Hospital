@@ -1,4 +1,4 @@
-from command_type import CommandType
+from enums.command_type import CommandType
 
 
 class Application:
