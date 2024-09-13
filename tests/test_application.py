@@ -1,5 +1,3 @@
-import builtins
-from unittest.mock import patch, MagicMock, call
 from application import Application
 from hospital import Hospital
 from hospital_commands import HospitalCommands

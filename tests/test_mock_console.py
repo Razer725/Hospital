@@ -56,7 +56,7 @@ def test_print_when_list_of_expected_messages_is_empty():
         console.print('Второе сообщение')
 
 
-def test_not_verify_all_calls_have_been_made():
+def test_should_be_exception_when_not_all_input_calls_made():
     console = MockConsole()
     console.add_expected_request_and_response('Введите команду: ', 'узнать статус пациента')
     console.add_expected_request_and_response('Введите ID пациента: ', '7')
@@ -67,7 +67,7 @@ def test_not_verify_all_calls_have_been_made():
         console.verify_all_calls_have_been_made()
 
 
-def test_not_verify_all_calls_have_been_made_2():
+def test_should_be_exception_when_not_all_print_calls_made():
     console = MockConsole()
     console.add_expected_output_message('Первое сообщение')
     console.add_expected_output_message('Второе сообщение')
