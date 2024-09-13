@@ -6,26 +6,26 @@ from hospital import Hospital
 
 class TestHospital:
     def test_get_status(self):
-        hospital = Hospital(patients=[0, 1, 2, 3])
+        hospital = Hospital(patients=[0, 2])
         assert hospital.get_status(1) == "Тяжело болен"
 
     def test_status_up(self):
-        hospital = Hospital(patients=[0, 1, 2, 3])
+        hospital = Hospital(patients=[0, 2])
         hospital.status_up(1)
         assert hospital.get_status(1) == 'Болен'
 
     def test_status_up_when_status_max(self):
-        hospital = Hospital(patients=[0, 1, 2, 3])
+        hospital = Hospital(patients=[0, 3])
         with pytest.raises(StatusUpError):
-            hospital.status_up(4)
+            hospital.status_up(2)
 
     def test_can_status_up(self):
-        hospital = Hospital(patients=[0, 1, 2, 3])
-        assert hospital.can_status_up(1)
+        hospital = Hospital(patients=[1, 2])
+        assert hospital.can_status_up(2)
 
     def test_can_status_up_when_status_max(self):
-        hospital = Hospital(patients=[0, 1, 2, 3])
-        assert not hospital.can_status_up(4)
+        hospital = Hospital(patients=[1, 3])
+        assert not hospital.can_status_up(2)
 
     def test_get_patients_count(self):
         hospital = Hospital(patients=[0, 1, None, 3])
